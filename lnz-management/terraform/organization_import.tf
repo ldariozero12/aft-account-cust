@@ -3,6 +3,7 @@ locals {
     "/Aft"      = "ou-rnzg-vkc3ri6v"
     "/Sandbox"  = "ou-rnzg-43rk1tup"
     "/Security" = "ou-rnzg-m164vt37"
+    "/Workloads" = "ou-rnzg-dq3x305o"
   }
 
 
