@@ -5,7 +5,7 @@
 # Customer and either Amazon Web Services, Inc. or Amazon Web Services EMEA SARL or both.
 
 terraform {
-  required_version = ">= 1.7.0"
+  #required_version = ">= 1.7.0"
 
   required_providers {
     aws = {
