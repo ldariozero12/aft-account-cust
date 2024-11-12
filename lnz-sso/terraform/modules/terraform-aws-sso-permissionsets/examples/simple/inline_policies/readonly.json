@@ -1,0 +1,495 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllServices",
+      "Effect": "Allow",
+      "Action": [
+        "acm:*",
+        "acm-pca:*",
+        "apigateway:*",
+        "application-autoscaling:*",
+        "applicationinsights:*",
+        "apprunner:*",
+        "appstream:*",
+        "athena:*",
+        "autoscaling:*",
+        "aws-marketplace:*",
+        "aws-marketplace-management:*",
+        "aws-portal:*",
+        "backup:*",
+        "ce:*",
+        "cloudformation:*",
+        "cloudfront:*",
+        "cloudshell:*",
+        "cloudwatch:*",
+        "codebuild:*",
+        "codecommit:*",
+        "codedeploy:*",
+        "codepipeline:*",
+        "cognito-identity:*",
+        "cognito-idp:*",
+        "cognito-sync:*",
+        "compute-optimizer:*",
+        "datasync:*",
+        "dms:*",
+        "ds:*",
+        "dynamodb:*",
+        "ebs:*",
+        "ec2:*",
+        "ec2-instance-connect:*",
+        "ec2messages:*",
+        "ecr:*",
+        "ecr-public:*",
+        "ecs:*",
+        "eks:*",
+        "elasticache:*",
+        "elasticfilesystem:*",
+        "elasticloadbalancing:*",
+        "emr-containers:*",
+        "es:*",
+        "events:*",
+        "evidently:*",
+        "firehose:*",
+        "fsx:*",
+        "glacier:*",
+        "globalaccelerator:*",
+        "glue:*",
+        "health:*",
+        "kafka:*",
+        "kafka-cluster:*",
+        "kinesis:*",
+        "kinesisanalytics:*",
+        "kms:*",
+        "lakeformation:*",
+        "lambda:*",
+        "license-manager:*",
+        "logs:*",
+        "mgn:*",
+        "mq:*",
+        "pi:*",
+        "rds:*",
+        "rds-data:*",
+        "rds-db:*",
+        "redshift:*",
+        "refactor-spaces:*",
+        "route53:*",
+        "route53domains:*",
+        "rum:*",
+        "s3:*",
+        "s3-object-lambda:*",
+        "schemas:*",
+        "secretsmanager:*",
+        "servicecatalog:*",
+        "servicequotas:*",
+        "ses:*",
+        "snowball:*",
+        "shield:List*",
+        "shield:Describe*",
+        "shield:GetSubscriptionState",
+        "sns:*",
+        "sqs:*",
+        "ssm:*",
+        "ssmmessages:*",
+        "states:*",
+        "sts:*",
+        "support:*",
+        "trustedadvisor:*",
+        "waf:*",
+        "waf-regional:*",
+        "wafv2:*",
+        "wellarchitected:*",
+        "workspaces:*",
+        "workdocs:RegisterDirectory",
+        "workdocs:DeregisterDirectory",
+        "workdocs:AddUserToGroup",
+        "drs:*",
+        "resource-groups:ListGroups"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "IAMRWDeny",
+      "Effect": "Deny",
+      "Action": [
+        "iam:DeleteAccountPassword",
+        "iam:UpdateAccountPasswordPolicy",
+        "iam:CreateAccountAlias",
+        "iam:DeleteAccountAlias"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "DenyPermBoundaryIAMPolicyAlteration",
+      "Effect": "Deny",
+      "Action": [
+        "iam:DeletePolicy",
+        "iam:DeletePolicyVersion",
+        "iam:CreatePolicyVersion",
+        "iam:SetDefaultPolicyVersion",
+        "iam:Update*",
+        "iam:Deactivate*",
+        "iam:Create*",
+        "iam:Delete*",
+        "iam:Remove*",
+        "iam:Set*",
+        "iam:Change*",
+        "iam:Reset*"
+      ],
+      "Resource": "arn:aws:iam::${account_id}:policy/${boundary}"
+    },
+    {
+      "Sid": "ManageAppRolePoliciesCreatingRolesinScope",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole",
+        "iam:PutRolePermissionsBoundary",
+        "iam:DetachRolePolicy",
+        "iam:DeleteRolePolicy",
+        "iam:AttachRolePolicy",
+        "iam:PutRolePolicy",
+        "iam:UpdateAssumeRolePolicy"
+      ],
+      "Resource": [
+        "arn:aws:iam::${account_id}:role/${app_prefix}*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "iam:PermissionsBoundary": "arn:aws:iam::${account_id}:policy/${boundary}"
+        }
+      }
+    },
+    {
+      "Sid": "ManageInstanceProfileCreateAppPolicy",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreatePolicy",
+        "iam:DeletePolicy",
+        "iam:CreatePolicyVersion",
+        "iam:DeletePolicyVersion",
+        "iam:CreateInstanceProfile",
+        "iam:DeleteInstanceProfile",
+        "iam:GetInstanceProfile",
+        "iam:RemoveRoleFromInstanceProfile",
+        "iam:AddRoleToInstanceProfile",
+        "iam:ListInstanceProfiles"
+      ],
+      "Resource": [
+        "arn:aws:iam::${account_id}:instance-profile/${app_prefix}*"
+      ]
+    },
+    {
+      "Sid": "AllowListAndGetinAppScope",
+      "Effect": "Allow",
+      "Action": [
+        "iam:Get*",
+        "iam:List*"
+      ],
+      "Resource": [
+        "arn:aws:iam::${account_id}:role/${app_prefix}*",
+        "arn:aws:iam::${account_id}:policy/${app_prefix}*",
+        "arn:aws:iam::${account_id}:instance-profile/${app_prefix}*",
+        "arn:aws:iam::${account_id}:role/aws-service-role/*",
+        "arn:aws:iam::${account_id}:role/service-role/*",
+        "arn:aws:iam::${account_id}:policy/${boundary}"
+      ]
+    },
+    {
+      "Sid": "DeleteAppRoles",
+      "Effect": "Allow",
+      "Action": [
+        "iam:DeleteRole",
+        "iam:UpdateAssumeRolePolicy"
+      ],
+      "Resource": [
+        "arn:aws:iam::${account_id}:role/${app_prefix}*",
+        "arn:aws:iam::${account_id}:instance-profile/${app_prefix}*"
+      ]
+    },
+    {
+      "Sid": "CreateServiceLinkedRoleModifyServiceLinkedRoleAWSServicesRoles",
+      "Effect": "Allow",
+      "Action": [
+        "iam:DeleteServiceLinkedRole",
+        "iam:GetServiceLinkedRoleDeletionStatus",
+        "iam:UpdateAssumeRolePolicy",
+        "iam:CreateServiceLinkedRole",
+        "iam:UpdateRoleDescription",
+        "iam:CreateRole",
+        "iam:UpdateAssumeRolePolicy",
+        "iam:CreateRole",
+        "iam:AttachRolePolicy",
+        "iam:PassRole"
+      ],
+      "Resource": "arn:aws:iam::${account_id}:role/aws-service-role/*"
+    },
+    {
+      "Sid": "AllowAssignRoles",
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": [
+        "arn:aws:iam::${account_id}:role/${app_prefix}*"
+      ]
+    },
+    {
+      "Sid": "DRSIamListReadPrivileges",
+      "Effect": "Allow",
+      "Action": [
+        "iam:ListInstanceProfiles",
+        "iam:ListRoles",
+        "iam:GetAccountAuthorizationDetails",
+        "iam:GetRole",
+        "iam:ListRoles",
+        "iam:ListInstanceProfiles",
+        "iam:GetInstanceProfile",
+        "iam:SimulatePrincipalPolicy",
+        "iam:GetUser"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "iamPassRole",
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:aws:iam::${account_id}:role/workspaces_DefaultRole",
+      "Condition": {
+        "StringEquals": {
+          "iam:PassedToService": "workspaces.amazonaws.com"
+        }
+      }
+    },
+    {
+      "Sid": "IAMReadOnlyCloudtrailAndConfigReadOnlySecurityServicesRo",
+      "Effect": "Allow",
+      "Action": [
+        "iam:Get*",
+        "iam:List*",
+        "iam:Simulate*",
+        "iam:GenerateCredentialReport",
+        "iam:GenerateOrganizationsAccessReport",
+        "cloudtrail:List*",
+        "cloudtrail:Get*",
+        "cloudtrail:Describe*",
+        "cloudtrail:Lookup*",
+        "config:Get*",
+        "config:Describe*",
+        "config:List*",
+        "config:Select*",
+        "guardduty:Get*",
+        "guardduty:List*",
+        "guardduty:Describe*",
+        "securityhub:Describe*",
+        "securityhub:Get*",
+        "securityhub:List*",
+        "macie:List*",
+        "macie:Get*",
+        "macie:Describe*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "DisallowVPCCreationDisallowInternetAccessDisallowVPNConnections",
+      "Effect": "Deny",
+      "Action": [
+        "ec2:createVPC",
+        "ec2:CreateDefaultVpc",
+        "ec2:AttachInternetGateway",
+        "ec2:DetachInternetGateway",
+        "ec2:CreateInternetGateway",
+        "ec2:DeleteInternetGateway",
+        "ec2:CreateEgressOnlyInternetGateway",
+        "ec2:DeleteEgressOnlyInternetGateway",
+        "ec2:CreateNatGateway",
+        "ec2:DeleteNatGateway",
+        "ec2:CreateClientVpnEndpoint",
+        "ec2:DeleteClientVpnEndpoint",
+        "ec2:ModifyClientVpnEndpoint",
+        "ec2:TerminateClientVpn*",
+        "ec2:CreateVpnConnection*",
+        "ec2:DeleteVpnConnection*",
+        "ec2:ModifyVpnConnection*",
+        "ec2:AttachVpnGateway",
+        "ec2:DetachVpnGateway",
+        "ec2:CreateVpnGateway",
+        "ec2:DeleteVpnGateway",
+        "ec2:CreateClientVpnRoute",
+        "ec2:DeleteClientVpnRoute",
+        "ec2:DisassociateClientVpnTargetNetwork",
+        "ec2:TerminateClientVpnConnections",
+        "ec2:RevokeClientVpnIngress",
+        "ec2:ModifyVpnTunnel*",
+        "ec2:DisassociateClientVpnTargetNetwork",
+        "ec2:AssociateClientVpnTargetNetwork",
+        "ec2:AuthorizeClientVpnIngress",
+        "ec2:ApplySecurityGroupsToClientVpnTargetNetwork"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "LockTGWCreationLockNetworkConnectivityDisallowDirectConnectUse",
+      "Effect": "Deny",
+      "Action": [
+        "ec2:CreateTransitGateway",
+        "ec2:DeleteTransitGateway",
+        "ec2:DeleteTransitGatewayRouteTable",
+        "ec2:CreateTransitGatewayRouteTable",
+        "ec2:AcceptTransitGatewayVpcAttachment",
+        "ec2:CreateTransitGatewayVpcAttachment",
+        "ec2:DeleteTransitGatewayVpcAttachment",
+        "ec2:ModifyTransitGatewayVpcAttachment",
+        "ec2:RejectTransitGatewayVpcAttachment",
+        "ec2:CreateVpc",
+        "ec2:DeleteVpc",
+        "ec2:CreateSubnet",
+        "ec2:DeleteSubnet",
+        "ec2:DeleteVpcPeeringConnection",
+        "ec2:AcceptVpcPeeringConnection",
+        "ec2:CreateVpcPeeringConnection",
+        "ec2:ModifyVpcPeeringConnection*",
+        "ec2:RejectVpcPeeringConnection",
+        "directconnect:CreatePrivateVirtualInterface",
+        "directconnect:DeleteBGPPeer",
+        "directconnect:DeleteLag",
+        "directconnect:AssociateHostedConnection",
+        "directconnect:CreateInterconnect",
+        "directconnect:CreatePublicVirtualInterface",
+        "directconnect:CreateLag",
+        "directconnect:CreateDirectConnectGateway",
+        "directconnect:AssociateVirtualInterface",
+        "directconnect:AllocateConnectionOnInterconnect",
+        "directconnect:AssociateConnectionWithLag",
+        "directconnect:AllocatePrivateVirtualInterface",
+        "directconnect:DeleteInterconnect",
+        "directconnect:AllocateHostedConnection",
+        "directconnect:DeleteDirectConnectGateway",
+        "directconnect:DeleteVirtualInterface",
+        "directconnect:DeleteDirectConnectGatewayAssociation",
+        "directconnect:CreateDirectConnectGatewayAssociation",
+        "directconnect:DeleteConnection",
+        "directconnect:CreateBGPPeer",
+        "directconnect:AllocatePublicVirtualInterface",
+        "directconnect:CreateConnection"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "DisallowGlobalAcceleratorUseDenyAWSShieldAdvanced",
+      "Effect": "Deny",
+      "Action": [
+        "globalaccelerator:DeleteListener",
+        "globalaccelerator:DeleteAccelerator",
+        "globalaccelerator:UpdateListener",
+        "globalaccelerator:UpdateAccelerator",
+        "globalaccelerator:CreateEndpointGroup",
+        "globalaccelerator:UpdateAcceleratorAttributes",
+        "globalaccelerator:UpdateEndpointGroup",
+        "globalaccelerator:CreateListener",
+        "globalaccelerator:CreateAccelerator",
+        "globalaccelerator:DeleteEndpointGroup",
+        "shield:UntagResource",
+        "shield:UpdateEmergencyContactSettings",
+        "shield:DeleteSubscription",
+        "shield:EnableProactiveEngagement",
+        "shield:UpdateApplicationLayerAutomaticResponse",
+        "shield:DisableApplicationLayerAutomaticResponse",
+        "shield:DeleteProtection",
+        "shield:TagResource",
+        "shield:UpdateSubscription",
+        "shield:AssociateProactiveEngagementDetails",
+        "shield:AssociateDRTRole",
+        "shield:DisableProactiveEngagement",
+        "shield:AssociateHealthCheck",
+        "shield:AssociateDRTLogBucket",
+        "shield:DisassociateHealthCheck",
+        "shield:DisassociateDRTLogBucket",
+        "shield:CreateSubscription",
+        "shield:CreateProtection",
+        "shield:EnableApplicationLayerAutomaticResponse",
+        "shield:DeleteProtectionGroup",
+        "shield:UpdateProtectionGroup",
+        "shield:CreateProtectionGroup",
+        "shield:DisassociateDRTRole"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "EC2",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:GetPasswordData"
+      ],
+      "Resource": "arn:aws:ec2:*:${account_id}:instance/*"
+    },
+    {
+      "Sid": "SSM",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:DescribeInstanceProperties",
+        "ssm:GetCommandInvocation",
+        "ssm:GetInventorySchema"
+      ],
+      "Resource": [
+        "arn:aws:ec2:*:${account_id}:instance/*",
+        "arn:aws:ssm:*:${account_id}:managed-instance/*"
+      ]
+    },
+    {
+      "Sid": "TerminateSession",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:TerminateSession"
+      ],
+      "Resource": [
+        "arn:aws:ec2:*:${account_id}:instance/*",
+        "arn:aws:ssm:*:${account_id}:managed-instance/*"
+      ],
+      "Condition": {
+        "StringLike": {
+          "ssm:resourceTag/aws:ssmmessages:session-id": [
+            "$${aws:userid}"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "SSMStartSession",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:StartSession"
+      ],
+      "Resource": [
+        "arn:aws:ec2:*:${account_id}:instance/*",
+        "arn:aws:ssm:*:${account_id}:managed-instance/*",
+        "arn:aws:ssm:*::document/AWS-StartPortForwardingSession"
+      ],
+      "Condition": {
+        "BoolIfExists": {
+          "ssm:SessionDocumentAccessCheck": "true"
+        }
+      }
+    },
+    {
+      "Sid": "GuiConnect",
+      "Effect": "Allow",
+      "Action": [
+        "ssm-guiconnect:CancelConnection",
+        "ssm-guiconnect:GetConnection",
+        "ssm-guiconnect:StartConnection"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "AllowIAMTags",
+      "Effect": "Allow",
+      "Action": [
+        "iam:List*",
+        "iam:Tag*",
+        "iam:Untag*"
+      ],
+      "Resource": [
+        "arn:aws:iam::${account_id}:role/${app_prefix}*"
+      ]
+    }
+  ]
+}
