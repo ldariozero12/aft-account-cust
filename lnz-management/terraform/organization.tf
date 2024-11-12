@@ -41,5 +41,6 @@ module "org" {
     # "securityhub.amazonaws.com"           = "" # AWS Security Hub
     # "ipam.amazonaws.com"                  = "" # Amazon VPC IP Address Manager (IPAM)
     # "reachability-analyzer.amazonaws.com" = "" # Amazon VPC Reachability Analyzer
+    "sso.amazonaws.com" = "565393065473"
   }
 }
