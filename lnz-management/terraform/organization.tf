@@ -9,14 +9,9 @@ module "org" {
     "/Foundational" = {}
     "/Sandbox"      = {}
     "/Security"     = {}
-    "/Workloads" = {
-      "/Tst": {
-
-      },
-      "Prd": {
-        
-      }
-    }
+    "/Workloads" = {}
+    "/Workloads/Tst": {}
+    "/Workloads/Prd": {}
   }
 
   enable_ram_sharing = true
