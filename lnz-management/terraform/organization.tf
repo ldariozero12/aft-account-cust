@@ -12,6 +12,7 @@ module "org" {
     "/Workloads" = {}
     "/Workloads/Tst": {}
     "/Workloads/Prd": {}
+    "/Workloads/Dev": {}
   }
 
   enable_ram_sharing = true
