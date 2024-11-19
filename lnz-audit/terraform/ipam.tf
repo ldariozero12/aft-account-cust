@@ -15,8 +15,8 @@ module "ipam_eu_central_1" {
 
   # part that changes for each region
   ipam_locale = "eu-central-1"
-  pool_cidrs  = local.pools["eu-central-1"].cidr_blocks
-  sub_pools   = local.pools["eu-central-1"].sub_pools
+  pool_cidrs  = local.ipam_pools["eu-central-1"].cidr_blocks
+  sub_pools   = local.ipam_pools["eu-central-1"].sub_pools
 }
 
 resource "aws_ssm_parameter" "eu-central-1-pools" {

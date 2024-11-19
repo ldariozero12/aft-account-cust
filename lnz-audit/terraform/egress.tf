@@ -21,7 +21,7 @@ module "vpc_egress_eu_central_1" {
   tgw_association = module.tgw_eu_central_1.tgw_route_tables["egress"]
   # tgw_on_prem_route_table = "tgw-rtb-029718526ceb17d40"
 
-  lz_region_cidrs         = local.pools["eu-central-1"].cidr_blocks
+  lz_region_cidrs         = local.ipam_pools["eu-central-1"].cidr_blocks
   enable_network_firewall = false
 }
 
