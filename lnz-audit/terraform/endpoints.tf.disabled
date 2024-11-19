@@ -1,0 +1,17 @@
+
+module "vpc_endpoints_primary" {
+  source = "git::codecommit::eu-central-1://lz-foundational-modules.git//terraform-aws-networking_vpc_endpoints"
+
+  interface_endpoints = var.interface_endpoints
+  ipam_pool_id        = module.ipam_global.ipam_primary_pools_ids["infrastructure"]
+  tgw_id              = module.tgw_eu_central_1.tgw_id
+  tgw_propagations = {
+    "infrastructure" = module.tgw_eu_central_1.tgw_route_tables["infrastructure"]
+    "workload-dev"   = module.tgw_eu_central_1.tgw_route_tables["workload_dev"]
+    "workload-tst"   = module.tgw_eu_central_1.tgw_route_tables["workload_tst"]
+    "workload-prd"   = module.tgw_eu_central_1.tgw_route_tables["workload_prd"]
+  }
+  tgw_associations = {
+    "endpoints" = module.tgw_eu_central_1.tgw_route_tables["infrastructure"]
+  }
+}

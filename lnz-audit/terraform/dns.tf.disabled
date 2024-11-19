@@ -1,0 +1,23 @@
+module "vpc_dns_eu-central-1" {
+  source = "git::codecommit::eu-central-1://lz-foundational-modules.git//terraform-aws-networking_vpc_dns"
+
+  management_account_id = var.management_account_id
+  organizations_id      = var.organizations_id
+  lz_region_cidrs       = var.primary_pool_cidrs
+  ipam_pool_id          = module.ipam_global.ipam_primary_pools_ids["infrastructure"]
+  tgw_id                = module.tgw_eu_central_1.tgw_id
+  tgw_propagations = {
+    "infrastructure" = module.tgw_eu_central_1.tgw_route_tables["infrastructure"]
+    "workload-dev"   = module.tgw_eu_central_1.tgw_route_tables["workload_dev"]
+    "workload-tst"   = module.tgw_eu_central_1.tgw_route_tables["workload_tst"]
+    "workload-prd"   = module.tgw_eu_central_1.tgw_route_tables["workload_prd"]
+  }
+  tgw_associations = {
+    "rtb-dns" = module.tgw_eu_central_1.tgw_route_tables["infrastructure"]
+  }
+  onprem_domains             = var.onprem_domains
+  aws_domain_controllers_ips = var.aws_domain_controllers_ips
+  aws_internal_domains       = var.aws_internal_domains
+  ram_principal_ous          = var.route53_ram_principal_ous
+  pl_private_ranges          = var.pl_private_ranges
+}
