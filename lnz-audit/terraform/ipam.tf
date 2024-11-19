@@ -6,7 +6,7 @@ module "ipam_eu_central_1" {
 
   # part that repeats for each region
   management_account_id = "741448940700"
-  organizations_id      = "ou-rnzg-m164vt37"
+  organizations_id      = "r-rnzg"
   ipam_auto_import      = false
 
   # ipam creation in main region
