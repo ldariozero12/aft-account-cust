@@ -5,13 +5,13 @@ module "ipam_eu_central_1" {
   source = "./modules/terraform-aws-networking-ipam"
 
   # part that repeats for each region
-  management_account_id = "$CHANGE"
-  organizations_id      = "o-xxxxxxxxxx"
+  management_account_id = "741448940700"
+  organizations_id      = "ou-rnzg-m164vt37"
   ipam_auto_import      = false
 
   # ipam creation in main region
   create_ipam  = true
-  ipam_regions = ["eu-central-1", "eu-west-1", "eu-south-1", "us-east-2"]
+  ipam_regions = ["eu-central-1"]
 
   # part that changes for each region
   ipam_locale = "eu-central-1"
