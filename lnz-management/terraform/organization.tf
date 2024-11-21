@@ -5,14 +5,38 @@ module "org" {
   }
 
   organizational_units = {
-    "/Aft"          = {}
-    "/Foundational" = {}
-    "/Sandbox"      = {}
-    "/Security"     = {}
-    "/Workloads" = {}
-    "/Workloads/Tst": {}
-    "/Workloads/Prd": {}
-    "/Workloads/Dev": {}
+    "/Aft" = {
+      scp        = ["./policies/scp/scp_organizations_noleave.json","./policies/scp/scp_s3_nopublicaccess.json"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+    }
+    "/Foundational" = {
+      scp        = ["./policies/scp/scp_organizations_noleave.json"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER","AWS-GR_RESTRICT_ROOT_USER_ACCESS_KEYS"]
+    }
+    "/Sandbox" = {
+      scp        = ["./policies/scp/scp_organizations_noleave.json"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+    }
+    "/Security" = {
+      scp        = ["./policies/scp/scp_organizations_noleave.json"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+    }
+    "/Workloads" = {
+      scp        = ["./policies/scp/scp_organizations_noleave.json"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+    }
+    "/Workloads/Tst" : {
+      scp        = ["./policies/scp/scp_organizations_noleave.json"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+    }
+    "/Workloads/Prd" : {
+      scp        = ["./policies/scp/scp_organizations_noleave.json"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+    }
+    "/Workloads/Dev" : {
+      scp        = ["./policies/scp/scp_organizations_noleave.json"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+    }
   }
 
   enable_ram_sharing = true
