@@ -5,7 +5,7 @@ module "org" {
   }
 
   organizational_units = {
-    "Root" = {
+    "/Root" = {
       ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
     }
     "/Aft" = {
