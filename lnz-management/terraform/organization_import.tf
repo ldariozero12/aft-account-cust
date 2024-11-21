@@ -1,6 +1,7 @@
 locals {
   existing_ous = {
     "/Aft"      = "ou-rnzg-vkc3ri6v"
+    "Root" = "r-rnzg"
     "/Sandbox"  = "ou-rnzg-43rk1tup"
     "/Security" = "ou-rnzg-m164vt37"
   }

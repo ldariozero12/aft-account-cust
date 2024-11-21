@@ -5,6 +5,9 @@ module "org" {
   }
 
   organizational_units = {
+    "Root" = {
+      
+    }
     "/Aft" = {
       scp        = ["./policies/scp/scp_organizations_noleave.json","./policies/scp/scp_s3_nopublicaccess.json"]
       ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
