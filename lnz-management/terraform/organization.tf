@@ -5,41 +5,112 @@ module "org" {
   }
 
   organizational_units = {
-    "/Root" = {
+    "Root" = {
       ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
     }
     "/Aft" = {
-      scp        = ["./policies/scp/scp_organizations_noleave.json","./policies/scp/scp_s3_nopublicaccess.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+      scp        = [
+          "./policies/scp/scp_billing_nomodify.json",
+          "./policies/scp/scp_cloudtrail_disabling.json",
+          "./policies/scp/scp_config_disabling.json",
+          "./policies/scp/scp_ebs_encryption.json",
+          "./policies/scp/scp_guardduty_disabling.json",
+          "./policies/scp/scp_iam_nousernokeys.json",
+          "./policies/scp/scp_organizations_noleave.json",
+          "./policies/scp/scp_s3_nopublicaccess.json",
+          "./policies/scp/scp_securityhub_disabling.json"
+        ]
+      ct_control = [
+          "AWS-GR_RESTRICT_ROOT_USER",
+          "AWS-GR_RESTRICT_ROOT_USER_ACCESS_KEYS",
+          "AWS-GR_AUDIT_BUCKET_ENCRYPTION_ENABLED",
+          "AWS-GR_AUDIT_BUCKET_LOGGING_ENABLED",
+          "AWS-GR_AUDIT_BUCKET_POLICY_CHANGES_PROHIBITED"
+        ]
     }
     "/Foundational" = {
-      scp        = ["./policies/scp/scp_organizations_noleave.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER","AWS-GR_RESTRICT_ROOT_USER_ACCESS_KEYS"]
+      scp        = [
+          "./policies/scp/scp_billing_nomodify.json",
+          "./policies/scp/scp_cloudtrail_disabling.json",
+          "./policies/scp/scp_config_disabling.json",
+          "./policies/scp/scp_ebs_encryption.json",
+          "./policies/scp/scp_guardduty_disabling.json",
+          "./policies/scp/scp_iam_nousernokeys.json",
+          "./policies/scp/scp_organizations_noleave.json",
+          "./policies/scp/scp_s3_nopublicaccess.json",
+          "./policies/scp/scp_securityhub_disabling.json"
+        ]
+      ct_control = [
+          "AWS-GR_RESTRICT_ROOT_USER",
+          "AWS-GR_RESTRICT_ROOT_USER_ACCESS_KEYS",
+          "AWS-GR_AUDIT_BUCKET_ENCRYPTION_ENABLED",
+          "AWS-GR_AUDIT_BUCKET_LOGGING_ENABLED",
+          "AWS-GR_AUDIT_BUCKET_POLICY_CHANGES_PROHIBITED"
+        ]
     }
     "/Sandbox" = {
-      scp        = ["./policies/scp/scp_organizations_noleave.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+      scp        = [
+          "./policies/scp/scp_billing_nomodify.json",
+          "./policies/scp/scp_cloudtrail_disabling.json",
+          "./policies/scp/scp_config_disabling.json",
+          "./policies/scp/scp_ebs_encryption.json",
+          "./policies/scp/scp_guardduty_disabling.json",
+          "./policies/scp/scp_iam_nousernokeys.json",
+          "./policies/scp/scp_organizations_noleave.json",
+          "./policies/scp/scp_s3_nopublicaccess.json",
+          "./policies/scp/scp_securityhub_disabling.json"
+        ]
+      ct_control = [
+          "AWS-GR_RESTRICT_ROOT_USER",
+          "AWS-GR_RESTRICT_ROOT_USER_ACCESS_KEYS",
+          "AWS-GR_AUDIT_BUCKET_ENCRYPTION_ENABLED",
+          "AWS-GR_AUDIT_BUCKET_LOGGING_ENABLED",
+          "AWS-GR_AUDIT_BUCKET_POLICY_CHANGES_PROHIBITED"
+        ]
     }
     "/Security" = {
-      scp        = ["./policies/scp/scp_organizations_noleave.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+      scp        = [
+          "./policies/scp/scp_billing_nomodify.json",
+          "./policies/scp/scp_cloudtrail_disabling.json",
+          "./policies/scp/scp_config_disabling.json",
+          "./policies/scp/scp_ebs_encryption.json",
+          "./policies/scp/scp_guardduty_disabling.json",
+          "./policies/scp/scp_iam_nousernokeys.json",
+          "./policies/scp/scp_organizations_noleave.json",
+          "./policies/scp/scp_s3_nopublicaccess.json",
+          "./policies/scp/scp_securityhub_disabling.json"
+        ]
+      ct_control = [
+          "AWS-GR_RESTRICT_ROOT_USER",
+          "AWS-GR_RESTRICT_ROOT_USER_ACCESS_KEYS",
+          "AWS-GR_AUDIT_BUCKET_ENCRYPTION_ENABLED",
+          "AWS-GR_AUDIT_BUCKET_LOGGING_ENABLED",
+          "AWS-GR_AUDIT_BUCKET_POLICY_CHANGES_PROHIBITED"
+        ]
     }
     "/Workloads" = {
-      scp        = ["./policies/scp/scp_organizations_noleave.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+      scp        = [
+          "./policies/scp/scp_billing_nomodify.json",
+          "./policies/scp/scp_cloudtrail_disabling.json",
+          "./policies/scp/scp_config_disabling.json",
+          "./policies/scp/scp_ebs_encryption.json",
+          "./policies/scp/scp_guardduty_disabling.json",
+          "./policies/scp/scp_iam_nousernokeys.json",
+          "./policies/scp/scp_organizations_noleave.json",
+          "./policies/scp/scp_s3_nopublicaccess.json",
+          "./policies/scp/scp_securityhub_disabling.json"
+        ]
+      ct_control = [
+          "AWS-GR_RESTRICT_ROOT_USER",
+          "AWS-GR_RESTRICT_ROOT_USER_ACCESS_KEYS",
+          "AWS-GR_AUDIT_BUCKET_ENCRYPTION_ENABLED",
+          "AWS-GR_AUDIT_BUCKET_LOGGING_ENABLED",
+          "AWS-GR_AUDIT_BUCKET_POLICY_CHANGES_PROHIBITED"
+        ]
     }
-    "/Workloads/Tst" : {
-      scp        = ["./policies/scp/scp_organizations_noleave.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
-    }
-    "/Workloads/Prd" : {
-      scp        = ["./policies/scp/scp_organizations_noleave.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
-    }
-    "/Workloads/Dev" : {
-      scp        = ["./policies/scp/scp_organizations_noleave.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
-    }
+    "/Workloads/Tst" : {}
+    "/Workloads/Prd" : {}
+    "/Workloads/Dev" : {}
   }
 
   enable_ram_sharing = true
