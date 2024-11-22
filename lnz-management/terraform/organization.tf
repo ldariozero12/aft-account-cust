@@ -5,9 +5,6 @@ module "org" {
   }
 
   organizational_units = {
-    "/Root" = {
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
-    }
     "/Aft" = {
       scp        = ["./policies/scp/scp_global_baseline.json"]
       ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
