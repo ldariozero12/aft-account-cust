@@ -7,7 +7,7 @@ module "org" {
   organizational_units = {
     "/Aft" = {
       scp        = ["./policies/scp/scp_global_baseline.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER", "AWS-GR_RESTRICT_ROOT_USER_ACCESS_KEYS"]
     }
     "/Foundational" = {
       scp        = ["./policies/scp/scp_global_baseline.json"]
@@ -15,27 +15,27 @@ module "org" {
     }
     "/Sandbox" = {
       scp        = ["./policies/scp/scp_global_baseline.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER", "AWS-GR_RESTRICT_ROOT_USER_ACCESS_KEYS"]
     }
     "/Security" = {
       scp        = ["./policies/scp/scp_global_baseline.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER", "AWS-GR_RESTRICT_ROOT_USER_ACCESS_KEYS"]
     }
     "/Workloads" = {
       scp        = ["./policies/scp/scp_global_baseline.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER", "AWS-GR_RESTRICT_ROOT_USER_ACCESS_KEYS"]
     }
     "/Workloads/Tst" : {
       scp        = ["./policies/scp/scp_global_baseline.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER", "AWS-GR_RESTRICT_ROOT_USER_ACCESS_KEYS"]
     }
     "/Workloads/Prd" : {
       scp        = ["./policies/scp/scp_global_baseline.json", "./policies/scp/scp_ebs_encryption.json", "./policies/scp/scp_production_networking_security.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER", "AWS-GR_RESTRICT_ROOT_USER_ACCESS_KEYS"]
     }
     "/Workloads/Dev" : {
       scp        = ["./policies/scp/scp_global_baseline.json"]
-      ct_control = ["AWS-GR_RESTRICT_ROOT_USER"]
+      ct_control = ["AWS-GR_RESTRICT_ROOT_USER", "AWS-GR_RESTRICT_ROOT_USER_ACCESS_KEYS"]
     }
   }
 
